@@ -179,6 +179,15 @@ public partial class RadioViewModel : ViewModelBase
         AppSettings.Current.RadioVolume = SoundOut.Volume;
     }
 
+    async public void ExtractAllRadios()
+    {
+
+        foreach (RadioSongPicker song in LoadedSongs)
+        {
+            await song.Extract();
+        }
+    }
+
     public void TogglePlayPause()
     {
         if (!IsValidSong) return;

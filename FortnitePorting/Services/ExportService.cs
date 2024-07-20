@@ -93,13 +93,13 @@ public static class ExportService
         });
     }
     
-    public static async Task ExportAsync(UObject asset, EAssetType assetType, EExportTargetType exportType)
+    public static async Task ExportAsync(UObject asset, EAssetType assetType, EExportTargetType exportType, bool openexplorer = true)
     {
         await TaskService.RunAsync(async () =>
         {
             if (exportType is EExportTargetType.Folder)
             {
-                CreateExportData(asset.Name, asset, Array.Empty<FStructFallback>(), assetType, exportType);
+                CreateExportData(asset.Name, asset, Array.Empty<FStructFallback>(), assetType, exportType, openexplorer);
                 return;
             }
 
@@ -135,14 +135,14 @@ public static class ExportService
         };
     }
 
-    private static ExportDataBase CreateExportData(string name, UObject asset, FStructFallback[] styles, EAssetType assetType, EExportTargetType exportType)
+    private static ExportDataBase CreateExportData(string name, UObject asset, FStructFallback[] styles, EAssetType assetType, EExportTargetType exportType, bool openexplorer = true)
     {
         return assetType.GetExportType() switch
         {
             EExportType.Mesh => new MeshExportData(name, asset, styles, assetType, exportType),
             EExportType.Animation => new AnimExportData(name, asset, styles, assetType, exportType),
             EExportType.Texture => new TextureExportData(name, asset, styles, assetType, exportType),
-            EExportType.Sound => new SoundExportData(name, asset, styles, assetType, exportType),
+            EExportType.Sound => new SoundExportData(name, asset, styles, assetType, exportType, openexplorer),
             _ => throw new ArgumentOutOfRangeException(assetType.ToString())
         };
     }

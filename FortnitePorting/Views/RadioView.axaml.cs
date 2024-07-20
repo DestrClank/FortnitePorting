@@ -24,6 +24,11 @@ public partial class RadioView : ViewBase<RadioViewModel>
         await ViewModel.Initialize();
     }
 
+    private void OnButtonExportAllSoundsPressed(object sender, RoutedEventArgs e)
+    {
+        ViewModel.ExtractAllRadios();
+    }
+
     private void OnPlaybackSliderChanged(object? sender, RangeBaseValueChangedEventArgs e)
     {
         if (sender is not Slider slider) return;

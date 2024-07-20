@@ -49,7 +49,24 @@ public partial class RadioSongPicker : UserControl
         return sound;
 
     }
-    
+
+    public async Task Extract()
+    {
+        var sound = GetSound();
+        if (sound is null) return;
+
+        await ExportService.ExportAsync(sound, EAssetType.Sound, EExportTargetType.Folder, false);
+
+        var exportPath = ExporterInstance.GetExportPath(sound, "wav");
+        var track = new Track(exportPath)
+        {
+            Title = Title,
+            Description = Description,
+            Artist = "Epic Games"
+        };
+        track.Save();
+    }
+
     public async Task Save()
     {
         var sound = GetSound();

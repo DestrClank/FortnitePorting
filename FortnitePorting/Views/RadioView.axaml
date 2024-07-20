@@ -21,9 +21,19 @@
                 <RowDefinition Height="{ext:Space 1}" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
-            <TextBox Grid.Row="0" x:Name="SearchTextBox" Grid.Column="0" Text="{Binding SearchFilter}" Watermark="Search" HorizontalAlignment="Stretch"/>
-            
+
+            <Grid Grid.Row="0">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <!-- Barre de recherche -->
+                <ColumnDefinition Width="Auto" />
+                <!-- Bouton -->
+              </Grid.ColumnDefinitions>
+
+              <TextBox x:Name="SearchTextBox" Grid.Column="0" Text="{Binding SearchFilter}" Watermark="Search" HorizontalAlignment="Stretch"/>
+              <Button Grid.Column="1" Content="Export all music packs" IsEnabled="{Binding FinishedLoading}" Margin="5,0,0,0" Click="OnButtonExportAllSoundsPressed" HorizontalAlignment="Right"/>
+            </Grid>
+          
             <Grid Grid.Row="2">
                 <controls:GroupBox>
                     <ScrollViewer>

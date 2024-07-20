@@ -4,6 +4,7 @@ using CUE4Parse.UE4.Assets.Exports;
 using CUE4Parse.UE4.Assets.Exports.Sound;
 using CUE4Parse.UE4.Assets.Objects;
 using FortnitePorting.Extensions;
+using FortnitePorting.Framework.Controls;
 
 namespace FortnitePorting.Export.Types;
 
@@ -11,7 +12,7 @@ public class SoundExportData : ExportDataBase
 {
     public List<ExportSound> Sounds = [];
     
-    public SoundExportData(string name, UObject asset, FStructFallback[] styles, EAssetType type, EExportTargetType exportType) : base(name, asset, styles, type, EExportType.Sound, exportType)
+    public SoundExportData(string name, UObject asset, FStructFallback[] styles, EAssetType type, EExportTargetType exportType, bool openexplorer = true) : base(name, asset, styles, type, EExportType.Sound, exportType)
     {
         var exportSounds = new List<USoundWave>();
         switch (asset)
@@ -39,7 +40,10 @@ public class SoundExportData : ExportDataBase
             if (exportType == EExportTargetType.Folder)
             {
                 var exportPath = Exporter.Export(exportSound, true);
-                Launch(Path.GetDirectoryName(exportPath)!);
+                if (openexplorer)
+                {
+                    Launch(Path.GetDirectoryName(exportPath)!);
+                }
             }
             else
             {
